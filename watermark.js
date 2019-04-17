@@ -71,7 +71,7 @@ function _parseOptions(imageData, source, options) {
 	var height = imageData.height;
 	var fillColor = options.color;
 	var watermarkText = options.text;
-	var align = _isValidAlignment(options.align) ? options.align.toLowerCase() : 'dia1';
+	var align = _isValidAlignment(options.align) ? options.align.toLowerCase() : null;
 	var font = options.font;
 	var resize = options.resize ? options.resize : defaultOptions.resize;
 	var outputPath = options.dstPath ? options.dstPath :
