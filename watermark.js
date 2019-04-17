@@ -45,6 +45,24 @@ function _isValidAlignment(align) {
 	return false;
 }
 
+//
+// Check if the position passed
+// is a valid position value
+//
+// Possible values of position are : NorthWest, North, NorthEast, West, Center, 
+// East, SouthWest, South, SouthEast
+//
+function _isValidPosition(position) {
+	if (ratify.isEmpty(position))
+		return false;
+
+	if (['NorthWest', 'North', 'NorthEast', 'West', 'Center', 'East',
+		'SouthWest', 'South', 'SouthEast'].indexOf(position) > -1)
+		return true;
+
+	return false;
+}
+
 function _parseOptions(imageData, source, options) {
 
 	var retObj = {};
@@ -58,9 +76,11 @@ function _parseOptions(imageData, source, options) {
 	var resize = options.resize ? options.resize : defaultOptions.resize;
 	var outputPath = options.dstPath ? options.dstPath :
 		path.dirname(source) + '/watermark' + path.extname(source);
-	var position = options.position ? options.position : 'Center',
+	var position = _isValidPosition(options.position) ? options.position : 'Center',
 		angle = null,
 		pointsize = null;
+	var stroke = options.stroke;
+	var strokewidth = options.strokewidth;
 
 	// Check if fillColor is specified
 	if (ratify.isEmpty(fillColor))
@@ -144,7 +164,7 @@ function _parseOptions(imageData, source, options) {
 			break;
 		default:
 			angle = (Math.atan(height / width) * (180 / Math.PI)) * -1;
-			pointsize = Math.sqrt(pointWidth * pointWidth + pointHeight * pointHeight) / watermarkText.length;
+			pointsize = options.pointsize ? options.pointsize : Math.sqrt(pointWidth * pointWidth + pointHeight * pointHeight) / watermarkText.length;
 			break;
 	}
 
@@ -164,6 +184,10 @@ function _parseOptions(imageData, source, options) {
 	args.push(pointsize); // this needs to be calculated dynamically based on image size and length of copyright message
 	args.push('-gravity');
 	args.push(position);    // alignment of watermark text.
+	args.push('-stroke');
+	args.push(stroke);
+	args.push('-strokewidth');
+	args.push(strokewidth);
 	args.push('-annotate');
 	args.push(angle);   // angle of watermark message, with respect to X-axis
 	args.push(watermarkText);  // copyright text
