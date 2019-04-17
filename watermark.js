@@ -163,7 +163,7 @@ function _parseOptions(imageData, source, options) {
 			var pointsize = Math.sqrt(pointWidth * pointWidth + pointHeight * pointHeight) / watermarkText.length;
 			break;
 		default:
-			angle = (Math.atan(height / width) * (180 / Math.PI)) * -1;
+			angle = 0;
 			pointsize = options.pointsize ? options.pointsize : Math.sqrt(pointWidth * pointWidth + pointHeight * pointHeight) / watermarkText.length;
 			break;
 	}
