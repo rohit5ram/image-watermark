@@ -184,10 +184,14 @@ function _parseOptions(imageData, source, options) {
 	args.push(pointsize); // this needs to be calculated dynamically based on image size and length of copyright message
 	args.push('-gravity');
 	args.push(position);    // alignment of watermark text.
-	args.push('-stroke');
-	args.push(stroke);
-	args.push('-strokewidth');
-	args.push(strokewidth);
+	if (!ratify.isEmpty(stroke)) {
+		args.push('-stroke');
+		args.push(stroke);
+	}
+	if (!ratify.isEmpty(strokewidth)) {
+		args.push('-strokewidth');
+		args.push(strokewidth);
+	}
 	args.push('-annotate');
 	args.push(angle);   // angle of watermark message, with respect to X-axis
 	args.push(watermarkText);  // copyright text
