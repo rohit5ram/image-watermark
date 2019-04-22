@@ -7,7 +7,7 @@
 
 // System Imports
 var fs = require('fs'),
-	im = require('imagemagick'),
+	im = require('node-imagemagick'),
 	path = require('path'),
 	ratify = require('node-ratify');
 
